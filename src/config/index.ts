@@ -13,7 +13,7 @@ export function loadConfig(): Config {
   const port = parseInt(process.env.PORT || '4000', 10);
   const nodeEnv = (process.env.NODE_ENV || 'development') as Config['nodeEnv'];
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     throw new Error('PORT must be a valid number');
   }
 

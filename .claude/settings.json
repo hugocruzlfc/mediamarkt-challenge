@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__codegraph__*",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(npx biome *)"
     ]
   },
   "hooks": {

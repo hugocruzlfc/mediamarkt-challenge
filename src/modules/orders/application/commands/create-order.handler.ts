@@ -1,15 +1,13 @@
-import { injectable, inject } from "inversify";
-import { CreateOrderCommand } from './create-order.command.js';
+import { inject, injectable } from 'inversify';
+import { TYPES } from '../../../../../src/container/types.js';
 import { Order } from '../../domain/order.entity.js';
 import { OrderState } from '../../domain/order-state.js';
-import { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
-import { TYPES } from '../../../../../src/container/types.js';
+import type { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
+import type { CreateOrderCommand } from './create-order.command.js';
 
 @injectable()
 export class CreateOrderHandler {
-  constructor(
-    @inject(TYPES.OrderRepository) private repository: OrderRepository,
-  ) {}
+  constructor(@inject(TYPES.OrderRepository) private repository: OrderRepository) {}
 
   async execute(command: CreateOrderCommand): Promise<Order> {
     const order = new Order({

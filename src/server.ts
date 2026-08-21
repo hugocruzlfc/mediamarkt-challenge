@@ -2,16 +2,16 @@ import 'reflect-metadata';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import mongoose from 'mongoose';
+import { loadConfig } from './config/index.js';
 import { createContainer } from './container/inversify.config.js';
 import { TYPES } from './container/types.js';
-import { loadConfig } from './config/index.js';
 import { typeDefs } from './graphql/schema.js';
+import type { CreateOrderHandler } from './modules/orders/application/commands/create-order.handler.js';
+import type { TransitionOrderHandler } from './modules/orders/application/commands/transition-order.handler.js';
+import type { GetOrderHandler } from './modules/orders/application/queries/get-order.handler.js';
+import type { ListOrdersHandler } from './modules/orders/application/queries/list-orders.handler.js';
 import { createOrderResolvers } from './modules/orders/infrastructure/graphql/order.resolvers.js';
 import { OrderSchema } from './modules/orders/infrastructure/persistence/order.schema.js';
-import { CreateOrderHandler } from './modules/orders/application/commands/create-order.handler.js';
-import { TransitionOrderHandler } from './modules/orders/application/commands/transition-order.handler.js';
-import { GetOrderHandler } from './modules/orders/application/queries/get-order.handler.js';
-import { ListOrdersHandler } from './modules/orders/application/queries/list-orders.handler.js';
 
 export async function startServer() {
   const config = loadConfig();

@@ -1,4 +1,4 @@
-import { OrderState } from '../../domain/order-state.js';
+import type { OrderState } from '../../domain/order-state.js';
 
 // Input DTO for transitioning an order
 export class TransitionOrderCommand {

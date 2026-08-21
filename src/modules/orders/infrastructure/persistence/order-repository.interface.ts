@@ -1,4 +1,4 @@
-import { Order } from '../../domain/order.entity.js';
+import type { Order } from '../../domain/order.entity.js';
 
 // Domain port: what any persistence implementation must provide
 export interface OrderRepository {

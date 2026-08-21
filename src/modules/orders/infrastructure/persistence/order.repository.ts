@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
-import { Model } from 'mongoose';
+import type { Model } from 'mongoose';
 import { Order } from '../../domain/order.entity.js';
-import { OrderState } from '../../domain/order-state.js';
-import { OrderRepository } from './order-repository.interface.js';
+import type { OrderState } from '../../domain/order-state.js';
+import type { OrderRepository } from './order-repository.interface.js';
 
 interface OrderDoc {
   _id: string;

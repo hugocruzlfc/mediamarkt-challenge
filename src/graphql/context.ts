@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import type { Container } from 'inversify';
 
 // GraphQL context carries the DI container so resolvers can access handlers
 export interface GraphQLContext {

@@ -1,4 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
 
+npx biome check --write src/
 npx lint-staged

@@ -1,15 +1,13 @@
-import { injectable, inject } from "inversify";
-import { TransitionOrderCommand } from './transition-order.command.js';
-import { Order } from '../../domain/order.entity.js';
-import { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
-import { OrderNotFoundError } from '../../domain/errors.js';
+import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../../../src/container/types.js';
+import { OrderNotFoundError } from '../../domain/errors.js';
+import type { Order } from '../../domain/order.entity.js';
+import type { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
+import type { TransitionOrderCommand } from './transition-order.command.js';
 
 @injectable()
 export class TransitionOrderHandler {
-  constructor(
-    @inject(TYPES.OrderRepository) private repository: OrderRepository,
-  ) {}
+  constructor(@inject(TYPES.OrderRepository) private repository: OrderRepository) {}
 
   async execute(command: TransitionOrderCommand): Promise<Order> {
     const order = await this.repository.findById(command.orderId);

@@ -1,8 +1,8 @@
-import { injectable, inject } from "inversify";
-import { ListOrdersQuery } from './list-orders.query.js';
-import { Order } from '../../domain/order.entity.js';
-import { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
+import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../../../src/container/types.js';
+import type { Order } from '../../domain/order.entity.js';
+import type { OrderRepository } from '../../infrastructure/persistence/order-repository.interface.js';
+import type { ListOrdersQuery } from './list-orders.query.js';
 
 export interface ListOrdersResult {
   orders: Order[];
@@ -13,9 +13,7 @@ export interface ListOrdersResult {
 
 @injectable()
 export class ListOrdersHandler {
-  constructor(
-    @inject(TYPES.OrderRepository) private repository: OrderRepository,
-  ) {}
+  constructor(@inject(TYPES.OrderRepository) private repository: OrderRepository) {}
 
   async execute(query: ListOrdersQuery): Promise<ListOrdersResult> {
     const [orders, total] = await Promise.all([

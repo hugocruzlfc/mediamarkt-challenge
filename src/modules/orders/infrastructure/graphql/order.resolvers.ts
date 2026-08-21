@@ -1,14 +1,14 @@
 import { GraphQLError } from 'graphql';
 import { CreateOrderCommand } from '../../application/commands/create-order.command.js';
+import type { CreateOrderHandler } from '../../application/commands/create-order.handler.js';
 import { TransitionOrderCommand } from '../../application/commands/transition-order.command.js';
+import type { TransitionOrderHandler } from '../../application/commands/transition-order.handler.js';
+import type { GetOrderHandler } from '../../application/queries/get-order.handler.js';
 import { GetOrderQuery } from '../../application/queries/get-order.query.js';
+import type { ListOrdersHandler } from '../../application/queries/list-orders.handler.js';
 import { ListOrdersQuery } from '../../application/queries/list-orders.query.js';
-import { CreateOrderHandler } from '../../application/commands/create-order.handler.js';
-import { TransitionOrderHandler } from '../../application/commands/transition-order.handler.js';
-import { GetOrderHandler } from '../../application/queries/get-order.handler.js';
-import { ListOrdersHandler } from '../../application/queries/list-orders.handler.js';
 import { DomainError } from '../../domain/errors.js';
-import { Order } from '../../domain/order.entity.js';
+import type { Order } from '../../domain/order.entity.js';
 
 // Map domain errors to GraphQL errors with stable extensions.code
 function mapDomainError(error: unknown): GraphQLError {
@@ -62,10 +62,7 @@ export function createOrderResolvers(
         }
       },
 
-      async orders(
-        _: unknown,
-        args: { limit?: number; offset?: number },
-      ) {
+      async orders(_: unknown, args: { limit?: number; offset?: number }) {
         try {
           const limit = args.limit ?? 10;
           const offset = args.offset ?? 0;

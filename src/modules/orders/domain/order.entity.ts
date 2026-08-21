@@ -1,10 +1,6 @@
-import { OrderState, canTransition } from './order-state.js';
-import {
-  InvalidTransitionError,
-  EmployeeRequiredError,
-  InvalidInputError,
-} from './errors.js';
-import { LineItem, Customer, AssignedEmployee } from './types.js';
+import { EmployeeRequiredError, InvalidInputError, InvalidTransitionError } from './errors.js';
+import { canTransition, OrderState } from './order-state.js';
+import type { AssignedEmployee, Customer, LineItem } from './types.js';
 
 export interface OrderConstructorParams {
   id: string;
@@ -49,9 +45,7 @@ export class Order {
 
   transitionTo(newState: OrderState, employeeId?: string, employeeName?: string): Order {
     if (!canTransition(this.state, newState)) {
-      throw new InvalidTransitionError(
-        `Cannot transition from ${this.state} to ${newState}`,
-      );
+      throw new InvalidTransitionError(`Cannot transition from ${this.state} to ${newState}`);
     }
 
     let updatedEmployee = this.assignedEmployee;

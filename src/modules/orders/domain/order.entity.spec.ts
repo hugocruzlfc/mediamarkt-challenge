@@ -1,11 +1,7 @@
+import { EmployeeRequiredError, InvalidInputError, InvalidTransitionError } from './errors.js';
 import { Order } from './order.entity.js';
 import { OrderState } from './order-state.js';
-import {
-  InvalidTransitionError,
-  EmployeeRequiredError,
-  InvalidInputError,
-} from './errors.js';
-import { Customer, LineItem } from './types.js';
+import type { Customer, LineItem } from './types.js';
 
 describe('Order Entity', () => {
   const mockCustomer: Customer = { id: '1', name: 'John Doe', email: 'john@example.com' };
@@ -122,9 +118,7 @@ describe('Order Entity', () => {
         updatedAt: new Date(),
       });
 
-      expect(() => order.transitionTo(OrderState.COMPLETE)).toThrow(
-        InvalidTransitionError,
-      );
+      expect(() => order.transitionTo(OrderState.COMPLETE)).toThrow(InvalidTransitionError);
     });
 
     it('should not allow IN_PROGRESS → OPEN (revert)', () => {
@@ -168,9 +162,7 @@ describe('Order Entity', () => {
         updatedAt: new Date(),
       });
 
-      expect(() => order.transitionTo(OrderState.IN_PROGRESS)).toThrow(
-        EmployeeRequiredError,
-      );
+      expect(() => order.transitionTo(OrderState.IN_PROGRESS)).toThrow(EmployeeRequiredError);
     });
 
     it('should throw when transitioning to IN_PROGRESS with only employee id', () => {

@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { Model } from 'mongoose';
-import { TYPES } from './types.js';
-import { OrderRepository } from '../modules/orders/infrastructure/persistence/order-repository.interface.js';
-import { MongoOrderRepository } from '../modules/orders/infrastructure/persistence/order.repository.js';
+import type { Model } from 'mongoose';
 import { CreateOrderHandler } from '../modules/orders/application/commands/create-order.handler.js';
 import { TransitionOrderHandler } from '../modules/orders/application/commands/transition-order.handler.js';
 import { GetOrderHandler } from '../modules/orders/application/queries/get-order.handler.js';
 import { ListOrdersHandler } from '../modules/orders/application/queries/list-orders.handler.js';
+import { MongoOrderRepository } from '../modules/orders/infrastructure/persistence/order.repository.js';
+import type { OrderRepository } from '../modules/orders/infrastructure/persistence/order-repository.interface.js';
+import { TYPES } from './types.js';
 
 export function createContainer(orderModel: Model<any>): Container {
   const container = new Container();
