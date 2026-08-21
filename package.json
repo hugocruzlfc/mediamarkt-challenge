@@ -24,11 +24,12 @@
     "graphql": "^17.0.2",
     "inversify": "^8.2.3",
     "mongoose": "^9.9.3",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "zod": "^4.4.3"
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "jest --bail --findRelatedTests"
+      "jest --bail --findRelatedTests --passWithNoTests"
     ]
   },
   "devDependencies": {

@@ -37,10 +37,22 @@ A miniature order management system built for a technical coding challenge (Medi
 - Pagination beyond a basic limit/offset on `listOrders`
 - Separate `employees` or `customers` domain modules (they are value objects embedded in Order only)
 
+### Stack
+
+- **Runtime**: Node.js, TypeScript (ESM modules)
+- **API**: Apollo Server + GraphQL
+- **Database**: MongoDB + Mongoose
+- **Dependency Injection**: InversifyJS
+- **Environment Validation**: Zod (schema-based, fail-fast at startup)
+- **Testing**: Jest + ts-jest
+- **Linting & Formatting**: Biome (Rust-based, 100x faster than ESLint)
+- **Git Hooks**: Husky + Commitlint (enforce conventional commits)
+- **Dev Server**: tsx watch
+
 ### Running things
 
 ```bash
-npm run dev        # ts-node-dev with hot reload
+npm run dev        # tsx watch with hot reload
 npm test           # jest
 npm run typecheck  # tsc --noEmit
 npm run build      # tsc

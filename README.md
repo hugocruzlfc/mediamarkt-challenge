@@ -128,9 +128,30 @@ Fácil de razonar: ves exactamente qué entra en qué handler.
 
 ## 📚 Archivos de Explicación
 
+## ⚙️ Configuración (Zod Schema Validation)
+
+Las variables de entorno se validan **en tiempo de inicio** usando Zod:
+
+```bash
+# Env vars requeridas (.env o variables de sistema):
+MONGODB_URI=mongodb://localhost:27017/store-app  # URL válida, con default
+PORT=4000                                         # Integer, 1-65535
+NODE_ENV=development                              # 'development' | 'production' | 'test'
+```
+
+Zod garantiza:
+- ✅ Conversión automática de strings → tipos (PORT "4000" → `4000`)
+- ✅ Validación de URLs (MONGODB_URI debe ser válida)
+- ✅ Fail-fast: si la config es inválida, el servidor **no inicia**
+- ✅ Mensajes de error claros
+
+Ver `CONFIG.explain.md` para detalles.
+
+## 📚 Archivos de Explicación
+
 Cada archivo importante tiene un `.explain.md` que profundiza en el "por qué":
 
-- `src/config/index.explain.md` — Configuración y env vars
+- `CONFIG.explain.md` — Validación de env vars con Zod
 - `src/container/inversify.config.explain.md` — Wiring del IoC
 - `src/graphql/schema.explain.md` — Cómo se arma el esquema
 - `src/modules/orders/domain/order.entity.explain.md` — La máquina de estados

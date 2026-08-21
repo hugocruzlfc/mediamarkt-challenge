@@ -1,25 +1,32 @@
 import dotenv from 'dotenv';
+import { z } from 'zod';
 
 dotenv.config();
 
-export interface Config {
-  mongodbUri: string;
-  port: number;
-  nodeEnv: 'development' | 'production' | 'test';
-}
+const configSchema = z.object({
+  mongodbUri: z
+    .url('MONGODB_URI must be a valid MongoDB connection URL')
+    .default('mongodb://localhost:27017/store-app'),
+  port: z.coerce.number().int('PORT must be an integer').min(1).max(65535).default(4000),
+  nodeEnv: z.enum(['development', 'production', 'test']).default('development'),
+});
+
+export type Config = z.infer<typeof configSchema>;
 
 export function loadConfig(): Config {
-  const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/store-app';
-  const port = parseInt(process.env.PORT || '4000', 10);
-  const nodeEnv = (process.env.NODE_ENV || 'development') as Config['nodeEnv'];
+  const parsed = configSchema.safeParse({
+    mongodbUri: process.env.MONGODB_URI,
+    port: process.env.PORT,
+    nodeEnv: process.env.NODE_ENV,
+  });
 
-  if (Number.isNaN(port)) {
-    throw new Error('PORT must be a valid number');
+  if (!parsed.success) {
+    console.error('❌ Invalid environment variables:');
+    parsed.error.issues.forEach((issue) => {
+      console.error(`  ${issue.path.join('.')}: ${issue.message}`);
+    });
+    throw new Error('Configuration validation failed');
   }
 
-  return {
-    mongodbUri,
-    port,
-    nodeEnv,
-  };
+  return parsed.data;
 }
