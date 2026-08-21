@@ -38,3 +38,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Archivos de explicación (documentación local)
+*.explain.md
+*.explain.doc

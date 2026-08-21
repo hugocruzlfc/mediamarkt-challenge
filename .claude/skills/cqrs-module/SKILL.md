@@ -1,6 +1,6 @@
 ---
 name: cqrs-module
-description: Use this skill whenever adding a new command, query, or domain module to the Store Apps Platform (orders/employees/customers repo). Covers the CQRS-lite layering (domain/application/infrastructure), exactly where new files go, how to wire a new handler into the InversifyJS container, and how to map domain errors to GraphQL errors. Trigger whenever asked to add a mutation, add a query, add a new domain module, or wire up a new handler in this repo — even if the user just says "add a way to cancel an order" without naming any of these terms.
+description: Use this skill whenever adding a new command, query, or domain module to the Store Apps Platform. Covers the CQRS-lite layering (domain/application/infrastructure), exactly where new files go, how to wire a new handler into the InversifyJS container, and how to map domain errors to GraphQL errors.
 ---
 
 # CQRS-lite module pattern — Store Apps Platform
@@ -17,6 +17,7 @@ src/modules/<domain>/
   domain/
     <entity>.entity.ts      # entity + invariants, pure TS, no framework imports
     errors.ts                # domain-specific error classes (e.g. InvalidTransitionError)
+    types.ts                 # value objects (e.g. Customer, LineItem)
   application/
     commands/
       <verb-noun>.command.ts  # plain data object: the input shape
@@ -28,6 +29,7 @@ src/modules/<domain>/
     persistence/
       <entity>.schema.ts       # Mongoose schema — persistence shape only
       <entity>.repository.ts   # implements a domain-level repository interface
+      <entity>-repository.interface.ts  # port defining the repository contract
     graphql/
       <domain>.typedefs.ts
       <domain>.resolvers.ts
@@ -45,7 +47,7 @@ src/modules/<domain>/
    - receives its repository via constructor injection (`@inject(TYPES.OrderRepository)`)
    - loads the entity, calls the domain method, persists, returns the updated entity
    - does **not** contain the invariant logic itself — that lives only in the entity
-3. **Bind it.** Register the handler in `src/container/bindings.ts` under its own `Symbol`
+3. **Bind it.** Register the handler in `src/container/inversify.config.ts` under its own `Symbol`
    declared in `src/container/types.ts`.
 4. **Expose via GraphQL.** Add the mutation to `<domain>.typedefs.ts`. In
    `<domain>.resolvers.ts`, pull the handler out of the container and call `.execute(command)`.
