@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+
+# Salida de compilación y cobertura
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Variables de entorno y secretos locales
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Logs y archivos temporales de Node/npm/pnpm
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.pnpm-store/
+
+# Cachés de herramientas
+.cache/
+.eslintcache
+.jest-cache/
+.ts-node/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local de editores/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
