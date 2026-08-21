@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "types": ["jest", "node"],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   },
   "ts-node": {

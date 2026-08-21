@@ -1,10 +1,8 @@
-// Value objects for the Order aggregate
-
 export interface LineItem {
   id: string;
   name: string;
   quantity: number;
-  price: number; // in cents
+  price: number;
 }
 
 export interface Customer {

@@ -1,14 +1,14 @@
-import { GraphQLError } from 'graphql';
-import { CreateOrderCommand } from '../../application/commands/create-order.command.js';
-import type { CreateOrderHandler } from '../../application/commands/create-order.handler.js';
-import { TransitionOrderCommand } from '../../application/commands/transition-order.command.js';
-import type { TransitionOrderHandler } from '../../application/commands/transition-order.handler.js';
-import type { GetOrderHandler } from '../../application/queries/get-order.handler.js';
-import { GetOrderQuery } from '../../application/queries/get-order.query.js';
-import type { ListOrdersHandler } from '../../application/queries/list-orders.handler.js';
-import { ListOrdersQuery } from '../../application/queries/list-orders.query.js';
-import { DomainError } from '../../domain/errors.js';
-import type { Order } from '../../domain/order.entity.js';
+import { GraphQLError } from "graphql";
+import { CreateOrderCommand } from "../../application/commands/create-order.command.js";
+import type { CreateOrderHandler } from "../../application/commands/create-order.handler.js";
+import { TransitionOrderCommand } from "../../application/commands/transition-order.command.js";
+import type { TransitionOrderHandler } from "../../application/commands/transition-order.handler.js";
+import type { GetOrderHandler } from "../../application/queries/get-order.handler.js";
+import { GetOrderQuery } from "../../application/queries/get-order.query.js";
+import type { ListOrdersHandler } from "../../application/queries/list-orders.handler.js";
+import { ListOrdersQuery } from "../../application/queries/list-orders.query.js";
+import { DomainError } from "../../domain/errors.js";
+import { Order } from "../../domain/order.entity.js";
 
 // Map domain errors to GraphQL errors with stable extensions.code
 function mapDomainError(error: unknown): GraphQLError {
@@ -22,13 +22,13 @@ function mapDomainError(error: unknown): GraphQLError {
   if (error instanceof Error) {
     return new GraphQLError(error.message, {
       extensions: {
-        code: 'INTERNAL_SERVER_ERROR',
+        code: "INTERNAL_SERVER_ERROR",
       },
     });
   }
-  return new GraphQLError('An unknown error occurred', {
+  return new GraphQLError("An unknown error occurred", {
     extensions: {
-      code: 'INTERNAL_SERVER_ERROR',
+      code: "INTERNAL_SERVER_ERROR",
     },
   });
 }
@@ -55,7 +55,9 @@ export function createOrderResolvers(
     Query: {
       async order(_: unknown, args: { id: string }) {
         try {
-          const order = await getOrderHandler.execute(new GetOrderQuery(args.id));
+          const order = await getOrderHandler.execute(
+            new GetOrderQuery(args.id),
+          );
           return serializeOrder(order);
         } catch (error) {
           throw mapDomainError(error);
@@ -66,7 +68,9 @@ export function createOrderResolvers(
         try {
           const limit = args.limit ?? 10;
           const offset = args.offset ?? 0;
-          const result = await listOrdersHandler.execute(new ListOrdersQuery(limit, offset));
+          const result = await listOrdersHandler.execute(
+            new ListOrdersQuery(limit, offset),
+          );
           return {
             orders: result.orders.map(serializeOrder),
             total: result.total,

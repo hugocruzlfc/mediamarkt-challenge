@@ -1,5 +1,3 @@
-// Domain error types with stable error codes for GraphQL
-
 export class DomainError extends Error {
   constructor(
     message: string,
@@ -12,24 +10,26 @@ export class DomainError extends Error {
 
 export class InvalidTransitionError extends DomainError {
   constructor(message: string) {
-    super(message, 'INVALID_TRANSITION');
+    super(message, "INVALID_TRANSITION");
   }
 }
 
 export class EmployeeRequiredError extends DomainError {
-  constructor(message: string = 'An employee is required to move an order to IN_PROGRESS') {
-    super(message, 'EMPLOYEE_REQUIRED');
+  constructor(
+    message: string = "An employee is required to move an order to IN_PROGRESS",
+  ) {
+    super(message, "EMPLOYEE_REQUIRED");
   }
 }
 
 export class OrderNotFoundError extends DomainError {
   constructor(orderId: string) {
-    super(`Order with id ${orderId} not found`, 'ORDER_NOT_FOUND');
+    super(`Order with id ${orderId} not found`, "ORDER_NOT_FOUND");
   }
 }
 
 export class InvalidInputError extends DomainError {
   constructor(message: string) {
-    super(message, 'INVALID_INPUT');
+    super(message, "INVALID_INPUT");
   }
 }
